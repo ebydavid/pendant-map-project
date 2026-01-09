@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Spurlock Museum{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="/blog">Blog</a></li>
+<li>{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+<article>
+    <!-- Content Header -->
+    <div class="content-header">
+        <h1 class="page-title">{{ title }}</h1>
+        
+        <div class="post-meta">
+            <span>Post Date: {{ date }}</span>
+            <span>Author: {{ author }}</span>
+            <span>Reading Time: {{ reading_time }}</span>
+        </div>
+        
+        <div class="tags">
+            <a href="#" class="tag">Collections</a>
+            <a href="#" class="tag">In-Depth</a>
+        </div>
+    </div>
+
+    <!-- Hero Image (Optional - add your own) -->
+    <!-- <img src="{{ url_for('static', filename='images/pendant_hero.jpg') }}" 
+         alt="Medieval Pendants" 
+         class="hero-image"> -->
+
+    <!-- Introduction -->
+    <div class="content-section">
+        <h2>A Journey Through Medieval Europe</h2>
+        <p>
+            The Spurlock Museum's collection of medieval pendants represents a fascinating 
+            cross-section of European material culture from the 11th through 15th centuries. 
+            These small but significant objects offer insights into trade routes, religious 
+            practices, and the artistic sensibilities of their time.
+        </p>
+        <p>
+            This interactive map allows you to explore the geographic origins and cultural 
+            contexts of these remarkable artifacts. Each pendant tells a story of craftsmanship, 
+            devotion, and the interconnected world of medieval Europe.
+        </p>
+    </div>
+
+    <!-- Interactive Map -->
+    <div class="content-section">
+        <h2>Explore the Collection</h2>
+        <div class="map-container">
+            {{ map_html|safe }}
+        </div>
+        <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+            Click on any marker to learn more about the pendant and view it in our collection database.
+        </p>
+    </div>
+
+    <!-- Pendant Highlights -->
+    <div class="content-section">
+        <h2>Featured Pendants</h2>
+        <div class="image-gallery">
+            {% for pendant in pendants[:4] %}
+            <div class="gallery-item">
+                <!-- Add images when available -->
+                <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                    {{ pendant.name }}
+                </div>
+                <div class="gallery-caption">
+                    <strong>{{ pendant.name }}</strong><br>
+                    {{ pendant.period }}<br>
+                    Origin: {{ pendant.origin }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Historical Context -->
+    <div class="content-section">
+        <h2>Medieval Pendants: Form and Function</h2>
+        <p>
+            Medieval pendants served multiple purposes beyond mere adornment. Many were reliquaries, 
+            containing fragments of sacred relics and serving as portable objects of devotion. 
+            Others functioned as status symbols, their materials and craftsmanship signaling the 
+            wealth and connections of their owners.
+        </p>
+        <p>
+            The geographic distribution of these pendants reveals the extensive trade networks 
+            that connected medieval Europe. Materials and motifs traveled along pilgrimage routes, 
+            trade roads, and through diplomatic exchanges, creating a rich tapestry of cultural 
+            exchange that these small objects exemplify.
+        </p>
+    </div>
+
+    <!-- Collection Links -->
+    <div class="explore-more">
+        <h3>Explore More</h3>
+        <div class="collection-links">
+            {% for pendant in pendants %}
+            <a href="{{ pendant.collection_link }}" class="collection-link">
+                {{ pendant.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Resources -->
+    <div class="resources">
+        <h3>Resources</h3>
+        <ul>
+            <li><a href="#" target="_blank">Medieval Jewelry: A Cultural History (external link)</a></li>
+            <li><a href="#" target="_blank">Trade Routes of Medieval Europe (external link)</a></li>
+            <li><a href="#" target="_blank">Religious Artifacts and Devotional Practice (external link)</a></li>
+            <li><a href="#" target="_blank">Spurlock Museum Collection Database (external link)</a></li>
+        </ul>
+    </div>
+
+</article>
+{% endblock %}

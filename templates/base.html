@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Spurlock Museum{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spurlock_style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="site-title">Spurlock Museum</h1>
+            <p class="site-subtitle">of World Cultures</p>
+        </div>
+    </header>
+
+    <!-- Navigation / Breadcrumb -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                {% block breadcrumb %}{% endblock %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Spurlock Museum | University of Illinois</p>
+            <div class="footer-links">
+                <a href="/visit">Visit</a>
+                <a href="/collections">Collections</a>
+                <a href="/exhibits">Exhibits</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

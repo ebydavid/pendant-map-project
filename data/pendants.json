@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Reliquary Pendant",
+        "period": "12th Century",
+        "origin": "Paris, France",
+        "lat": 48.8566,
+        "lon": 2.3522,
+        "description": "Gilded bronze reliquary pendant with enamel inlay",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0001"
+    },
+    {
+        "name": "Pilgrimage Badge",
+        "period": "13th Century",
+        "origin": "Canterbury, England",
+        "lat": 51.2787,
+        "lon": 1.0789,
+        "description": "Lead-tin alloy pendant depicting St. Thomas Becket",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0002"
+    },
+    {
+        "name": "Royal Seal Pendant",
+        "period": "14th Century",
+        "origin": "Prague, Czech Republic",
+        "lat": 50.0755,
+        "lon": 14.4378,
+        "description": "Silver pendant with royal insignia",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0003"
+    },
+    {
+        "name": "Cross Pendant",
+        "period": "11th Century",
+        "origin": "Rome, Italy",
+        "lat": 41.9028,
+        "lon": 12.4964,
+        "description": "Byzantine-style gold cross with semi-precious stones",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0004"
+    },
+    {
+        "name": "Trade Guild Badge",
+        "period": "15th Century",
+        "origin": "Bruges, Belgium",
+        "lat": 51.2093,
+        "lon": 3.2247,
+        "description": "Copper alloy pendant marking guild membership",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0005"
+    },
+    {
+        "name": "Devotional Medallion",
+        "period": "13th Century",
+        "origin": "Cologne, Germany",
+        "lat": 50.9375,
+        "lon": 6.9603,
+        "description": "Bronze medallion with Virgin Mary depiction",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0006"
+    }
+]
