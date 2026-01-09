@@ -7,49 +7,382 @@
 <li>{{ title }}</li>
 {% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Filter Panel Styles */
+    .filter-panel {
+        background-color: white;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-left: 4px solid var(--illinois-orange);
+    }
+
+    .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .filter-header h3 {
+        color: var(--illinois-blue);
+        margin: 0;
+        font-size: 1.3rem;
+    }
+
+    .toggle-icon {
+        font-size: 1.5rem;
+        color: var(--illinois-orange);
+        transition: transform 0.3s ease;
+    }
+
+    .toggle-icon.collapsed {
+        transform: rotate(-90deg);
+    }
+
+    .filter-content {
+        max-height: 1000px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .filter-content.collapsed {
+        max-height: 0;
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .filter-group {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 4px;
+    }
+
+    .filter-group h4 {
+        color: var(--illinois-blue);
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    /* Century Slider */
+    .century-slider-container {
+        margin-top: 1rem;
+    }
+
+    .century-display {
+        font-weight: bold;
+        color: var(--illinois-orange);
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .century-slider {
+        width: 100%;
+        height: 6px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: linear-gradient(to right, #13294B, #FF5F05);
+        outline: none;
+        border-radius: 3px;
+    }
+
+    .century-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: var(--illinois-orange);
+        cursor: pointer;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .century-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: var(--illinois-orange);
+        cursor: pointer;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Checkbox Styles */
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: var(--illinois-orange);
+    }
+
+    .checkbox-item label {
+        cursor: pointer;
+        font-size: 0.9rem;
+        user-select: none;
+    }
+
+    /* Radio Buttons for Size */
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .radio-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .radio-item input[type="radio"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: var(--illinois-orange);
+    }
+
+    .radio-item label {
+        cursor: pointer;
+        font-size: 0.9rem;
+        user-select: none;
+    }
+
+    /* Action Buttons */
+    .filter-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .btn-apply {
+        background-color: var(--illinois-orange);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-apply:hover {
+        opacity: 0.9;
+    }
+
+    .btn-reset {
+        background-color: #e0e0e0;
+        color: var(--text-dark);
+    }
+
+    .btn-reset:hover {
+        background-color: #d0d0d0;
+    }
+
+    /* Results Counter */
+    .results-counter {
+        background-color: #e8f4f8;
+        padding: 0.75rem 1rem;
+        border-radius: 3px;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: var(--illinois-blue);
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <article>
     <!-- Content Header -->
     <div class="content-header">
         <h1 class="page-title">{{ title }}</h1>
-        
+
         <div class="post-meta">
             <span>Post Date: {{ date }}</span>
             <span>Author: {{ author }}</span>
             <span>Reading Time: {{ reading_time }}</span>
         </div>
-        
+
         <div class="tags">
             <a href="#" class="tag">Collections</a>
             <a href="#" class="tag">In-Depth</a>
         </div>
     </div>
 
-    <!-- Hero Image (Optional - add your own) -->
-    <!-- <img src="{{ url_for('static', filename='images/pendant_hero.jpg') }}" 
-         alt="Medieval Pendants" 
-         class="hero-image"> -->
-
     <!-- Introduction -->
     <div class="content-section">
         <h2>A Journey Through Medieval Europe</h2>
         <p>
-            The Spurlock Museum's collection of medieval pendants represents a fascinating 
-            cross-section of European material culture from the 11th through 15th centuries. 
-            These small but significant objects offer insights into trade routes, religious 
+            The Spurlock Museum's collection of medieval pendants represents a fascinating
+            cross-section of European material culture from the 11th through 15th centuries.
+            These small but significant objects offer insights into trade routes, religious
             practices, and the artistic sensibilities of their time.
         </p>
         <p>
-            This interactive map allows you to explore the geographic origins and cultural 
-            contexts of these remarkable artifacts. Each pendant tells a story of craftsmanship, 
-            devotion, and the interconnected world of medieval Europe.
+            Use the filtering panel below to explore pendants by century, shape, material, region,
+            size, function, and preservation status. Combine multiple filters to discover specific
+            subsets of the collection.
         </p>
+    </div>
+
+    <!-- Comprehensive Filter Panel -->
+    <div class="filter-panel">
+        <div class="filter-header" onclick="toggleFilters()">
+            <h3>🔍 Filter Collection</h3>
+            <span class="toggle-icon" id="toggleIcon">▼</span>
+        </div>
+
+        <div class="filter-content" id="filterContent">
+            <div class="filter-grid">
+                <!-- Century Filter -->
+                <div class="filter-group">
+                    <h4>📅 Century</h4>
+                    <div class="century-slider-container">
+                        <div class="century-display" id="centuryDisplay">All Centuries</div>
+                        <input type="range"
+                               min="{{ filter_options.min_century }}"
+                               max="{{ filter_options.max_century }}"
+                               value="{{ filter_options.min_century }}"
+                               class="century-slider"
+                               id="centurySlider">
+                        <small style="display: block; margin-top: 0.5rem; text-align: center; color: #666;">
+                            {{ filter_options.min_century }}th - {{ filter_options.max_century }}th century
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Shape Filter -->
+                <div class="filter-group">
+                    <h4>🔷 Shape</h4>
+                    <div class="checkbox-group">
+                        {% for shape in filter_options.shapes %}
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="shape_{{ loop.index }}" value="{{ shape }}" class="shape-filter">
+                            <label for="shape_{{ loop.index }}">{{ shape }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Material Filter -->
+                <div class="filter-group">
+                    <h4>✨ Material</h4>
+                    <div class="checkbox-group">
+                        {% for material in filter_options.materials %}
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="material_{{ loop.index }}" value="{{ material }}" class="material-filter">
+                            <label for="material_{{ loop.index }}">{{ material }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Region Filter -->
+                <div class="filter-group">
+                    <h4>🌍 Region</h4>
+                    <div class="checkbox-group">
+                        {% for region in filter_options.regions %}
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="region_{{ loop.index }}" value="{{ region }}" class="region-filter">
+                            <label for="region_{{ loop.index }}">{{ region }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Size Filter -->
+                <div class="filter-group">
+                    <h4>📏 Size</h4>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="size_all" name="size" value="" class="size-filter" checked>
+                            <label for="size_all">All Sizes</label>
+                        </div>
+                        {% for size in filter_options.sizes %}
+                        <div class="radio-item">
+                            <input type="radio" id="size_{{ loop.index }}" name="size" value="{{ size }}" class="size-filter">
+                            <label for="size_{{ loop.index }}">{{ size.capitalize() }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Function Filter -->
+                <div class="filter-group">
+                    <h4>⚜️ Function</h4>
+                    <div class="checkbox-group">
+                        {% for function in filter_options.functions %}
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="function_{{ loop.index }}" value="{{ function }}" class="function-filter">
+                            <label for="function_{{ loop.index }}">{{ function.replace('_', ' ').title() }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Preservation Status Filter -->
+                <div class="filter-group">
+                    <h4>🛡️ Preservation Status</h4>
+                    <div class="checkbox-group">
+                        {% for status in filter_options.preservation_statuses %}
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="preservation_{{ loop.index }}" value="{{ status }}" class="preservation-filter">
+                            <label for="preservation_{{ loop.index }}">{{ status.capitalize() }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="filter-actions">
+                <button class="btn btn-apply" onclick="applyFilters()">Apply Filters</button>
+                <button class="btn btn-reset" onclick="resetFilters()">Reset All</button>
+            </div>
+
+            <!-- Results Counter -->
+            <div class="results-counter" id="resultsCounter">
+                Showing all {{ pendants|length }} pendants
+            </div>
+        </div>
     </div>
 
     <!-- Interactive Map -->
     <div class="content-section">
         <h2>Explore the Collection</h2>
-        <div class="map-container">
+        <div class="map-container" id="mapContainer">
             {{ map_html|safe }}
         </div>
         <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
@@ -63,13 +396,12 @@
         <div class="image-gallery">
             {% for pendant in pendants[:4] %}
             <div class="gallery-item">
-                <!-- Add images when available -->
                 <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                     {{ pendant.name }}
                 </div>
                 <div class="gallery-caption">
                     <strong>{{ pendant.name }}</strong><br>
-                    {{ pendant.period }}<br>
+                    {{ pendant.period }} | {{ pendant.shape }}<br>
                     Origin: {{ pendant.origin }}
                 </div>
             </div>
@@ -81,15 +413,15 @@
     <div class="content-section">
         <h2>Medieval Pendants: Form and Function</h2>
         <p>
-            Medieval pendants served multiple purposes beyond mere adornment. Many were reliquaries, 
-            containing fragments of sacred relics and serving as portable objects of devotion. 
-            Others functioned as status symbols, their materials and craftsmanship signaling the 
+            Medieval pendants served multiple purposes beyond mere adornment. Many were reliquaries,
+            containing fragments of sacred relics and serving as portable objects of devotion.
+            Others functioned as status symbols, their materials and craftsmanship signaling the
             wealth and connections of their owners.
         </p>
         <p>
-            The geographic distribution of these pendants reveals the extensive trade networks 
-            that connected medieval Europe. Materials and motifs traveled along pilgrimage routes, 
-            trade roads, and through diplomatic exchanges, creating a rich tapestry of cultural 
+            The geographic distribution of these pendants reveals the extensive trade networks
+            that connected medieval Europe. Materials and motifs traveled along pilgrimage routes,
+            trade roads, and through diplomatic exchanges, creating a rich tapestry of cultural
             exchange that these small objects exemplify.
         </p>
     </div>
@@ -118,4 +450,191 @@
     </div>
 
 </article>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Store all pendant data
+    const allPendants = {{ pendants_json|safe }};
+    let markers = [];
+    let map;
+
+    // Initialize map reference after page load
+    window.addEventListener('load', function() {
+        // Get Leaflet map instance
+        const mapElement = document.querySelector('.folium-map');
+        if (mapElement && mapElement._leaflet_id) {
+            map = window[Object.keys(window).find(key =>
+                window[key] && window[key]._container === mapElement
+            )];
+        }
+    });
+
+    // Toggle filter panel
+    function toggleFilters() {
+        const content = document.getElementById('filterContent');
+        const icon = document.getElementById('toggleIcon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('collapsed');
+    }
+
+    // Century slider functionality
+    const centurySlider = document.getElementById('centurySlider');
+    const centuryDisplay = document.getElementById('centuryDisplay');
+    let selectedCentury = null;
+
+    centurySlider.addEventListener('input', function() {
+        selectedCentury = parseInt(this.value);
+        centuryDisplay.textContent = selectedCentury + 'th Century';
+    });
+
+    // Apply filters
+    function applyFilters() {
+        // Collect selected filters
+        const filters = {
+            century: selectedCentury,
+            shapes: getCheckedValues('.shape-filter'),
+            materials: getCheckedValues('.material-filter'),
+            regions: getCheckedValues('.region-filter'),
+            size: getSelectedRadio('.size-filter'),
+            functions: getCheckedValues('.function-filter'),
+            preservation_statuses: getCheckedValues('.preservation-filter')
+        };
+
+        // Filter pendants
+        const filtered = filterPendants(filters);
+
+        // Update map and counter
+        updateMap(filtered);
+        updateCounter(filtered.length);
+    }
+
+    // Reset all filters
+    function resetFilters() {
+        // Reset century slider
+        centurySlider.value = centurySlider.min;
+        selectedCentury = null;
+        centuryDisplay.textContent = 'All Centuries';
+
+        // Uncheck all checkboxes
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+        // Reset radio buttons
+        document.getElementById('size_all').checked = true;
+
+        // Show all pendants
+        updateMap(allPendants);
+        updateCounter(allPendants.length);
+    }
+
+    // Helper functions
+    function getCheckedValues(selector) {
+        const checked = [];
+        document.querySelectorAll(selector + ':checked').forEach(cb => {
+            checked.push(cb.value);
+        });
+        return checked.length > 0 ? checked : null;
+    }
+
+    function getSelectedRadio(selector) {
+        const selected = document.querySelector(selector + ':checked');
+        return selected && selected.value ? selected.value : null;
+    }
+
+    function filterPendants(filters) {
+        return allPendants.filter(pendant => {
+            // Check century
+            if (filters.century && pendant.century !== filters.century) {
+                return false;
+            }
+
+            // Check shape
+            if (filters.shapes && !filters.shapes.includes(pendant.shape)) {
+                return false;
+            }
+
+            // Check material
+            if (filters.materials && !filters.materials.includes(pendant.material)) {
+                return false;
+            }
+
+            // Check region
+            if (filters.regions && !filters.regions.includes(pendant.region)) {
+                return false;
+            }
+
+            // Check size
+            if (filters.size && pendant.size !== filters.size) {
+                return false;
+            }
+
+            // Check function
+            if (filters.functions && !filters.functions.includes(pendant.function)) {
+                return false;
+            }
+
+            // Check preservation (pendant must have ALL selected statuses)
+            if (filters.preservation_statuses) {
+                const hasAll = filters.preservation_statuses.every(status =>
+                    pendant.preservation.includes(status)
+                );
+                if (!hasAll) return false;
+            }
+
+            return true;
+        });
+    }
+
+    function updateMap(pendants) {
+        if (!map) return;
+
+        // Clear existing markers
+        map.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
+            }
+        });
+
+        // Add filtered markers
+        pendants.forEach(pendant => {
+            const popupHtml = `
+                <div style="width: 250px;">
+                    <h4>${pendant.name}</h4>
+                    <p><strong>Period:</strong> ${pendant.period}</p>
+                    <p><strong>Origin:</strong> ${pendant.origin}</p>
+                    <p><strong>Shape:</strong> ${pendant.shape}</p>
+                    <p><strong>Material:</strong> ${pendant.material}</p>
+                    <p><strong>Size:</strong> ${pendant.size.charAt(0).toUpperCase() + pendant.size.slice(1)}</p>
+                    <p><strong>Function:</strong> ${pendant.function.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                    <p><strong>Preservation:</strong> ${pendant.preservation.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(', ')}</p>
+                    <p style="margin-top:10px;">${pendant.description}</p>
+                    <a href="${pendant.collection_link}" target="_blank">View in Collection</a>
+                </div>
+            `;
+
+            L.marker([pendant.lat, pendant.lon], {
+                icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            })
+            .bindPopup(popupHtml)
+            .bindTooltip(`${pendant.name} (${pendant.period})`)
+            .addTo(map);
+        });
+    }
+
+    function updateCounter(count) {
+        const counter = document.getElementById('resultsCounter');
+        if (count === allPendants.length) {
+            counter.textContent = `Showing all ${count} pendants`;
+        } else {
+            counter.textContent = `Showing ${count} of ${allPendants.length} pendants`;
+        }
+    }
+</script>
 {% endblock %}

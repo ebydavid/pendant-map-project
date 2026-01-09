@@ -1,0 +1,154 @@
+# Update Instructions: Comprehensive Multi-Attribute Filtering System
+
+## What's New in Version 3
+
+This version adds a powerful, collapsible filtering panel with **7 different filter categories**:
+
+1. **📅 Century** - Temporal slider (11th-15th century)
+2. **🔷 Shape** - Animal, Shield, Crucifix/cross, Circular, Oval, Rectangular, Square, Reliquary Box, Star-shaped, etc.
+3. **✨ Material** - Gold, Silver, Bronze, Copper alloy, Lead-tin, Gilded brass, etc.
+4. **🌍 Region** - France, Scotland, Ireland, England, Italy, Holy Roman Empire, Iberian Peninsula, Western Europe, Central Europe, Mediterranean, etc.
+5. **📏 Size** - Small, Medium, Large (radio buttons)
+6. **⚜️ Function** - Devotional, Trade guild, Royal insignia, Pilgrimage
+7. **🛡️ Preservation Status** - Fine, Delicate, Corroded, Damaged, Detached from pinning mechanism (multi-select checkboxes)
+
+## Key Features
+
+- **Collapsible Panel** - Click header to show/hide filters
+- **Combine Multiple Filters** - All filters work together (e.g., "13th century gold crucifixes from France that are fine")
+- **Real-time Counter** - Shows "X of Y pendants" as you filter
+- **Apply/Reset Buttons** - Apply filters to map or reset everything at once
+- **Enhanced Popups** - Map popups now show all pendant attributes
+- **Responsive Design** - Filters adapt to screen size
+- **Spurlock Styling** - Maintains Illinois orange/blue branding throughout
+
+## How to Update
+
+### Step 1: Stop Your Flask App
+In PyCharm terminal, press **Ctrl+C**
+
+### Step 2: Backup Current Version (Optional)
+```bash
+cp app.py app_backup.py
+cp data/pendants.json data/pendants_backup.json
+cp templates/pendant_map.html templates/pendant_map_backup.html
+```
+
+### Step 3: Replace Files
+
+Download and extract `pendant_v3_complete.tar.gz`, then replace:
+- `app.py` → Updated with multi-attribute filtering logic
+- `data/pendants.json` → Enhanced with all new attributes (8 sample pendants included)
+- `templates/pendant_map.html` → New filtering panel interface
+
+### Step 4: Restart Flask
+```bash
+python app.py
+```
+
+### Step 5: Test the Filters
+
+1. Open http://localhost:5000
+2. Click "🔍 Filter Collection" to expand the panel
+3. Try filtering by:
+   - Century (move slider)
+   - Shape (check boxes)
+   - Material (check boxes)
+   - etc.
+4. Click "Apply Filters" to see results
+5. Click "Reset All" to show everything again
+
+## Customizing for Your Collection
+
+### Adding Your Real Pendant Data
+
+Edit `data/pendants.json` with your actual collection. Each pendant needs:
+
+```json
+{
+    "name": "Your Pendant Name",
+    "period": "12th Century",
+    "origin": "City, Country",
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "description": "Detailed description",
+    "collection_link": "/collections/your-id",
+    "shape": "Crucifix/cross",
+    "material": "Gold",
+    "region": "France",
+    "size": "small",
+    "function": "devotional",
+    "preservation": ["fine", "delicate"]
+}
+```
+
+**Important Notes:**
+- `preservation` is an array - pendants can have multiple statuses
+- `size` options: "small", "medium", "large"
+- `period` must include number + "th Century" (e.g., "12th Century")
+- Use exact spelling for shape/material/region so filters work correctly
+
+### Adding New Filter Options
+
+If you need new shapes, materials, or regions:
+1. Just add them to your pendant data
+2. The app automatically detects all unique values
+3. They'll appear in the filter panel automatically
+
+## Filter Logic
+
+**Checkboxes (Shape, Material, Region, Function, Preservation):**
+- Checking multiple boxes = OR logic within same category
+- Example: Check "Gold" and "Silver" = show pendants that are Gold OR Silver
+
+**Across Categories:**
+- Different categories = AND logic
+- Example: 13th Century AND Gold AND France = show only pendants matching ALL three
+
+**Preservation Status:**
+- Special case: Pendants must have ALL selected preservation statuses
+- Example: Check "Fine" and "Delicate" = show only pendants that are both fine AND delicate
+
+## Technical Details
+
+### Backend (`app.py`)
+- `load_pendants()` - Loads pendant data and extracts centuries
+- `get_filter_options()` - Dynamically builds filter options from data
+- Main route passes all pendant data + filter options to template
+- Optional API endpoint `/api/filter-pendants` (not currently used but available)
+
+### Frontend (`pendant_map.html`)
+- JavaScript stores all pendants in memory
+- Filter functions work on client-side (fast, no server calls)
+- Dynamically updates map markers based on filters
+- Uses Leaflet.js API to add/remove markers
+
+## Next Steps
+
+Consider adding:
+- **Export filtered results** to CSV or PDF
+- **Permalink** to share specific filter combinations
+- **Advanced search** with text queries
+- **Timeline animation** showing pendant appearance over centuries
+- **Heatmap view** showing concentration of pendants
+- **Comparison tool** to compare multiple pendants side-by-side
+
+## Troubleshooting
+
+**Filters not working:**
+- Check browser console for JavaScript errors
+- Verify pendant data has all required fields
+- Make sure spelling matches exactly between data and filter selections
+
+**Map not updating:**
+- Ensure Leaflet is loaded (check for errors in console)
+- Try refreshing page
+- Verify map container has proper ID
+
+**Preservation checkboxes strange behavior:**
+- Remember: Selecting multiple preservation statuses requires pendants to have ALL of them
+- This is intentional for accuracy (a pendant that's "damaged" and "corroded" is different from one that's only "damaged")
+
+## Support
+
+For questions about deploying to Spurlock's live site, coordinate with the museum's web team.

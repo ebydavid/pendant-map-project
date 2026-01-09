@@ -6,7 +6,13 @@
         "lat": 48.8566,
         "lon": 2.3522,
         "description": "Gilded bronze reliquary pendant with enamel inlay",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0001"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0001",
+        "shape": "Reliquary Box",
+        "material": "Gilded brass",
+        "region": "France",
+        "size": "small",
+        "function": "devotional",
+        "preservation": ["fine", "detached from pinning mechanism"]
     },
     {
         "name": "Pilgrimage Badge",
@@ -15,7 +21,13 @@
         "lat": 51.2787,
         "lon": 1.0789,
         "description": "Lead-tin alloy pendant depicting St. Thomas Becket",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0002"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0002",
+        "shape": "Shield shape",
+        "material": "Lead-tin",
+        "region": "England",
+        "size": "medium",
+        "function": "pilgrimage",
+        "preservation": ["corroded"]
     },
     {
         "name": "Royal Seal Pendant",
@@ -24,7 +36,13 @@
         "lat": 50.0755,
         "lon": 14.4378,
         "description": "Silver pendant with royal insignia",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0003"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0003",
+        "shape": "Circular",
+        "material": "Silver",
+        "region": "Holy Roman Empire",
+        "size": "medium",
+        "function": "royal insignia",
+        "preservation": ["fine"]
     },
     {
         "name": "Cross Pendant",
@@ -33,7 +51,13 @@
         "lat": 41.9028,
         "lon": 12.4964,
         "description": "Byzantine-style gold cross with semi-precious stones",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0004"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0004",
+        "shape": "Crucifix/cross",
+        "material": "Gold",
+        "region": "Italy",
+        "size": "small",
+        "function": "devotional",
+        "preservation": ["delicate", "damaged"]
     },
     {
         "name": "Trade Guild Badge",
@@ -42,7 +66,13 @@
         "lat": 51.2093,
         "lon": 3.2247,
         "description": "Copper alloy pendant marking guild membership",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0005"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0005",
+        "shape": "Shield shape",
+        "material": "Copper alloy",
+        "region": "Western Europe",
+        "size": "medium",
+        "function": "trade guild",
+        "preservation": ["fine"]
     },
     {
         "name": "Devotional Medallion",
@@ -51,6 +81,42 @@
         "lat": 50.9375,
         "lon": 6.9603,
         "description": "Bronze medallion with Virgin Mary depiction",
-        "collection_link": "/collections/search-collection/details.php?a=1234.56.0006"
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0006",
+        "shape": "Circular",
+        "material": "Bronze",
+        "region": "Holy Roman Empire",
+        "size": "small",
+        "function": "devotional",
+        "preservation": ["fine"]
+    },
+    {
+        "name": "Lion Pendant",
+        "period": "14th Century",
+        "origin": "Edinburgh, Scotland",
+        "lat": 55.9533,
+        "lon": -3.1883,
+        "description": "Silver lion-shaped pendant with heraldic design",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0007",
+        "shape": "Animal shape",
+        "material": "Silver",
+        "region": "Scotland",
+        "size": "medium",
+        "function": "royal insignia",
+        "preservation": ["corroded", "damaged"]
+    },
+    {
+        "name": "Star Amulet",
+        "period": "12th Century",
+        "origin": "Toledo, Spain",
+        "lat": 39.8628,
+        "lon": -4.0273,
+        "description": "Gilded brass star-shaped amulet with Arabic inscriptions",
+        "collection_link": "/collections/search-collection/details.php?a=1234.56.0008",
+        "shape": "Star-shaped",
+        "material": "Gilded brass",
+        "region": "Iberian Peninsula",
+        "size": "small",
+        "function": "devotional",
+        "preservation": ["fine", "delicate"]
     }
 ]
